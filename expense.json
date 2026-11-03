@@ -4,5 +4,17 @@
   "description": "lunch",
   "amount": 10,
   "date": "0001-01-01T00:00:00Z"
+ },
+ {
+  "id": 2,
+  "description": "momo",
+  "amount": 70,
+  "date": "0001-01-01T00:00:00Z"
+ },
+ {
+  "id": 3,
+  "description": "niga",
+  "amount": 700,
+  "date": "0001-01-01T00:00:00Z"
  }
 ]

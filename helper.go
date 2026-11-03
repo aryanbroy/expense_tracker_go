@@ -6,6 +6,17 @@ import (
 	"strconv"
 )
 
+func fetchLatestId() int {
+	data := ReadJsonFile(fileName)
+	var latestId int
+
+	for _, expense := range data {
+		latestId = expense.Id
+	}
+
+	return latestId
+}
+
 func HandleExpenseAddition(args []string) {
 	if len(args) <= 3 {
 		log.Fatalln("Empty arguments passed")
@@ -19,8 +30,12 @@ func HandleExpenseAddition(args []string) {
 	if err != nil {
 		log.Fatalln("Error converting string to int: ", err)
 	}
+
+	latestId := fetchLatestId()
+	newId := latestId + 1
+
 	newData := &Expense{
-		Id:          1,
+		Id:          newId,
 		Description: desc,
 		Amount:      amount,
 	}
