@@ -12,6 +12,8 @@ func HandleExpenseCommands(args []string) {
 		// latestId := FetchLatestId(fileName)
 		// fmt.Println("Latest id: ", latestId)
 		HandleExpenseAddition(args)
+	case "list":
+		HandleExpensesList()
 	default:
 		log.Fatalln("Invalid command, use the ones specified in the README.md file")
 	}

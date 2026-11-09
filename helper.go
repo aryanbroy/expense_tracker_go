@@ -3,8 +3,11 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"time"
+
+	"github.com/olekukonko/tablewriter"
 )
 
 func fetchLatestId() int {
@@ -34,7 +37,7 @@ func HandleExpenseAddition(args []string) {
 
 	err = checkFile(fileName)
 	if err != nil {
-		log.Fatalln("Error checking file:  ", err)
+		log.Fatalln("Error validating file:  ", err)
 	}
 
 	latestId := fetchLatestId()
@@ -49,4 +52,24 @@ func HandleExpenseAddition(args []string) {
 
 	AppendToJson(newData)
 	fmt.Println("Successfully appended to json")
+}
+
+func HandleExpensesList() {
+	err := checkFile(fileName)
+	if err != nil {
+		log.Fatalln("Error validating file: ", err)
+	}
+
+	expenses := ReadJsonFile(fileName)
+
+	table := tablewriter.NewWriter(os.Stdout)
+	table.Header([]any{"ID", "Date", "Description", "Amount"})
+
+	for _, expense := range expenses {
+		t := expense.Date
+		formattedTime := t.Format("2006-01-02")
+		table.Append([]any{expense.Id, formattedTime, expense.Description, expense.Amount})
+	}
+
+	table.Render()
 }
