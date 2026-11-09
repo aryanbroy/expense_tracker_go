@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 )
@@ -10,8 +11,11 @@ var fileName = "expense.json"
 
 func checkFile(filename string) error {
 	_, err := os.Stat(filename)
+	flag := false
+
 	if err != nil {
 		if os.IsNotExist(err) {
+			flag = true
 			_, err := os.Create(filename)
 			if err != nil {
 				return err
@@ -20,7 +24,7 @@ func checkFile(filename string) error {
 		}
 		return err
 	}
-
+	fmt.Println("File exists: ", flag)
 	return nil
 }
 
@@ -38,11 +42,6 @@ func ReadJsonFile(fileName string) []Expense {
 }
 
 func AppendToJson(newData *Expense) {
-	err := checkFile(fileName)
-	if err != nil {
-		log.Fatalln("Error checking file:  ", err)
-	}
-
 	data := ReadJsonFile(fileName)
 
 	data = append(data, *newData)

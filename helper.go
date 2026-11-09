@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"time"
 )
 
 func fetchLatestId() int {
@@ -31,6 +32,11 @@ func HandleExpenseAddition(args []string) {
 		log.Fatalln("Error converting string to int: ", err)
 	}
 
+	err = checkFile(fileName)
+	if err != nil {
+		log.Fatalln("Error checking file:  ", err)
+	}
+
 	latestId := fetchLatestId()
 	newId := latestId + 1
 
@@ -38,6 +44,7 @@ func HandleExpenseAddition(args []string) {
 		Id:          newId,
 		Description: desc,
 		Amount:      amount,
+		Date:        time.Now(),
 	}
 
 	AppendToJson(newData)
