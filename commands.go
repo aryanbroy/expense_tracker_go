@@ -14,6 +14,10 @@ func HandleExpenseCommands(args []string) {
 		HandleExpenseAddition(args)
 	case "list":
 		HandleExpensesList()
+	case "summary":
+		HandleSummary()
+	case "delete":
+		HandleExpenseDel(args)
 	default:
 		log.Fatalln("Invalid command, use the ones specified in the README.md file")
 	}

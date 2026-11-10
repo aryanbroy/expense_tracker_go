@@ -42,6 +42,10 @@ func AppendToJson(newData *Expense) {
 
 	data = append(data, *newData)
 
+	WriteToJson(data)
+}
+
+func WriteToJson(data []Expense) {
 	dataBytes, err := json.MarshalIndent(data, "", " ")
 	if err != nil {
 		log.Fatalln("Error marshaling data: ", err)

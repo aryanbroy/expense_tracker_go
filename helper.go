@@ -73,3 +73,52 @@ func HandleExpensesList() {
 
 	table.Render()
 }
+
+func HandleSummary() {
+	err := checkFile(fileName)
+	if err != nil {
+		log.Fatalln("Error validating file: ", err)
+	}
+
+	totalExpense := 0
+
+	expenses := ReadJsonFile(fileName)
+
+	for _, expense := range expenses {
+		totalExpense += expense.Amount
+	}
+
+	fmt.Println("Total expenses: ", totalExpense)
+}
+
+func HandleExpenseDel(args []string) {
+	if len(args) < 3 {
+		log.Fatalln("Empty arguments received")
+	} else if len(args) > 3 {
+		log.Fatalln("More than required arguments received")
+	}
+
+	idStr := args[2]
+
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		log.Fatalln("Error converting string to int: ", err)
+	}
+
+	err = checkFile(fileName)
+	if err != nil {
+		log.Fatalln("Error validating file: ", err)
+	}
+
+	expenses := ReadJsonFile(fileName)
+
+	newData := []Expense{}
+
+	for _, expense := range expenses {
+		if expense.Id != id {
+			newData = append(newData, expense)
+		}
+	}
+
+	WriteToJson(newData)
+}
