@@ -1,3 +1,6 @@
+# Project url
+https://roadmap.sh/projects/expense-tracker
+
 # commands
 
 $ go run . add "Lunch" 20
@@ -23,5 +26,4 @@ $ go run . summary
 $ go run . summary  8
 # Total expenses for August: $20
 
-https://roadmap.sh/projects/expense-tracker
 
