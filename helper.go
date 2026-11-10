@@ -74,7 +74,17 @@ func HandleExpensesList() {
 	table.Render()
 }
 
-func HandleSummary() {
+func HandleSummary(args []string) {
+
+	if len(args) > 3 {
+		log.Fatalln("More than required arguments were passed")
+	}
+
+	monthlySummaryFlag := false
+	if len(args) == 3 {
+		monthlySummaryFlag = true
+	}
+
 	err := checkFile(fileName)
 	if err != nil {
 		log.Fatalln("Error validating file: ", err)
@@ -85,6 +95,21 @@ func HandleSummary() {
 	expenses := ReadJsonFile(fileName)
 
 	for _, expense := range expenses {
+		if monthlySummaryFlag == true {
+			month := args[2]
+
+			monthInt, err := strconv.Atoi(month)
+			if err != nil {
+				log.Fatalln("Error converting string to int(month): ", err)
+			}
+
+			if monthInt < 1 || monthInt > 12 {
+				log.Fatalln("Please enter a valid month")
+			}
+			if int(expense.Date.Month()) != monthInt || expense.Date.Year() != time.Now().Year() {
+				continue
+			}
+		}
 		totalExpense += expense.Amount
 	}
 

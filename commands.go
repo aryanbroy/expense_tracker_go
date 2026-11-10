@@ -15,7 +15,7 @@ func HandleExpenseCommands(args []string) {
 	case "list":
 		HandleExpensesList()
 	case "summary":
-		HandleSummary()
+		HandleSummary(args)
 	case "delete":
 		HandleExpenseDel(args)
 	default:
