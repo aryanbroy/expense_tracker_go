@@ -1,25 +1,25 @@
 # commands
 
-$ expense-tracker add "Lunch" 20
+$ go run . add "Lunch" 20
 # Expense added successfully (ID: 1)
 
-$ expense-tracker add "Dinner" 10
+$ go run . add "Dinner" 10
 # Expense added successfully (ID: 2)
 
-$ expense-tracker list
+$ go run . list
 # ID  Date       Description  Amount
 # 1   2024-08-06  Lunch        $20
 # 2   2024-08-06  Dinner       $10
 
-$ expense-tracker summary
+$ go run . summary
 # Total expenses: $30
 
-$ expense-tracker delete 2
+$ go run . delete 2
 # Expense deleted successfully
 
-$ expense-tracker summary
+$ go run . summary
 # Total expenses: $20
 
-$ expense-tracker summary --month 8
+$ go run . summary  8
 # Total expenses for August: $20
 
